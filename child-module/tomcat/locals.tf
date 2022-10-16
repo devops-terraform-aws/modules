@@ -7,7 +7,10 @@ locals {
     name = "dev"
     },
     {
-      name = "stage"
+      name = "qa"
+    },
+    {
+      name = "uat"
     },
     {
       name = "prod"
