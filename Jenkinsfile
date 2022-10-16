@@ -10,7 +10,7 @@ pipeline {
             }
         }
 
-        stage("SonarQube Code Qulaity") {
+        stage('SonarQube Code Qulaity') {
                 steps {
                 withSonarQubeEnv('SonarQube') {
                     sh 'mvn clean package sonar:sonar'
