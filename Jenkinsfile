@@ -13,7 +13,6 @@ pipeline {
         stage("SonarQube Code Qulaity") {
                 steps {
                 withSonarQubeEnv('SonarQube') {
-                    // sh 'mvn clean package sonar:sonar'
                     sh 'mvn -f MyWebApp/pom.xml sonar:sonar'
                 }
             }
