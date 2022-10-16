@@ -5,7 +5,7 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
                 extensions: [], 
-                userRemoteConfigs: [[credentialsId: '285e2fb0-9545-4592-b5f0-e1570ba79753', 
+                userRemoteConfigs: [[credentialsId: 'd9b6fb64-d9ea-4295-96eb-a1c3caf3afef', 
                 url: 'https://github.com/devops-terraform-aws/modules.git']]])
             }
         }     
