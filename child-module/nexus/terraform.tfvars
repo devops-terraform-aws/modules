@@ -1,5 +1,4 @@
 ami           = "ami-06640050dc3f556bb"
-key_name      = "EC2"
 instance_type = "t2.small"
 subnet_id     = "subnet-0cbdf90cbb40c6afe"
 region        = "us-east-1"

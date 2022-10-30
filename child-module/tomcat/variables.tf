@@ -4,6 +4,7 @@ variable "ami" {
 
 variable "key_name" {
   type = string
+  description = "Enter the name of your key on aws"
 }
 
 variable "instance_type" {
