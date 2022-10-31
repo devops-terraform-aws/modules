@@ -13,6 +13,7 @@ variable "instance_type" {
 
 variable "subnet_id" {
   type = string
+  description = "The subnet ID of your vpc on ${var.region}"
 }
 
 variable "region" {
