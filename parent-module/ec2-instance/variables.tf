@@ -13,14 +13,9 @@ variable "instance_type" {
   description = "Instance type to use for the instance. Updates to this field will trigger a stop/start of the EC2 instance."
 }
 
-variable "subnet_id" {
-  type        = string
-  description = "VPC Subnet ID to launch in."
-}
-
-variable "vpc_security_group_ids" {
+variable "security_groups" {
   type        = list(string)
-  description = " List of security group IDs to associate with."
+  description = " List of security groups to associate with."
 }
 
 variable "region" {

@@ -30,9 +30,8 @@ No modules.
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name of the Key Pair to use for the instance. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name to assign to the resource. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Specify the region to for resources to be created. | `string` | n/a | yes |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | VPC Subnet ID to launch in. | `string` | n/a | yes |
+| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | List of security groups to associate with. | `list(string)` | n/a | yes |
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | User data to provide when launching the instance. Do not pass gzip-compressed data via this argument. | `string` | n/a | yes |
-| <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | List of security group IDs to associate with. | `list(string)` | n/a | yes |
 
 ## Outputs
 

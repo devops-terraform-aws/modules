@@ -1,8 +1,5 @@
 locals {
-  name = "tomcat-security-${var.name}"
-}
-
-locals {
+  name = "security-${var.name}"
   ec2_instance = [{
     name = "dev"
     },
