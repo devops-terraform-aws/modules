@@ -4,7 +4,7 @@ resource "aws_security_group" "security_group" {
   description = "Allow inbound traffic"
 
   ingress {
-    description = "SSH"
+    description = "SSH port"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -12,8 +12,25 @@ resource "aws_security_group" "security_group" {
   }
 
   ingress {
-    from_port   = var.from_port
-    to_port     = var.to_port
+    description = "Jenkins and Tomcat port"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = var.protocol
+    cidr_blocks = var.cidr_blocks
+  }
+
+  ingress {
+    description = "Nexus port"
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = var.protocol
+    cidr_blocks = var.cidr_blocks
+  }
+
+  ingress {
+    description = "SonarQube port"
+    from_port   = 9000
+    to_port     = 9000
     protocol    = var.protocol
     cidr_blocks = var.cidr_blocks
   }
