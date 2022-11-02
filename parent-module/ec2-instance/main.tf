@@ -8,4 +8,18 @@ resource "aws_instance" "instance" {
   tags = {
     Name = var.name
   }
+
+  # provisioner "remote-exec" {
+
+  #   connection {
+  #     type        = "ssh"
+  #     user        = "ubuntu"
+  #     private_key = file(var.key_name)
+  #     host        = self.public_ip
+  #   }
+
+  #   inline = [
+  #     "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
+  #   ]
+  # }
 }

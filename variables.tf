@@ -1,33 +1,39 @@
 variable "ami" {
-  type = string
+  type        = string
+  description = "AMI to use for the instance."
 }
 
 variable "key_name" {
   type        = string
-  description = "Enter the name of your key on aws"
+  description = "Key name of the Key Pair to use for the instance."
 }
 
 variable "instance_type" {
-  type = string
+  type        = string
+  description = "Instance type to use for the instance. Updates to this field will trigger a stop/start of the EC2 instance."
 }
 
-# variable "subnet_id" {
-#   type        = string
-#   description = "The subnet ID of your vpc"
-# }
-
 variable "region" {
-  type = string
+  type        = string
+  description = "Specify the region to for resources to be created."
 }
 
 variable "name" {
-  type = string
+  type        = string
+  description = "The name to assign to the resource."
 }
 
 variable "cidr_blocks" {
-  type = list(string)
+  type        = list(string)
+  description = "The IPv4 CIDR block for the VPC"
 }
 
 variable "protocol" {
-  type = string
+  type        = string
+  description = "If you select a protocol of -1 (semantically equivalent to all, which is not a valid value here), you must specify a from_port and to_port equal to 0"
+}
+
+variable "ami_nexus" {
+  type        = string
+  description = "AMI to use for the instance. We are you redhat ami."
 }

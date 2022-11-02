@@ -5,3 +5,4 @@ name          = "server"
 protocol      = "tcp"
 cidr_blocks   = ["0.0.0.0/0"]
 key_name      = "terraform-key"
+ami_nexus     = "ami-06640050dc3f556bb"
