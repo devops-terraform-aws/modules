@@ -16,6 +16,12 @@ terraform apply --auto-approve=true
 ```
 terraform destroy --auto-approve=true
 ```
+
+- To clear directory after `destroying resources` run:
+```
+./clean.sh
+```
+
 ## Requirements
 
 | Name | Version |
