@@ -10,15 +10,15 @@ resource "aws_instance" "instance" {
   }
 
   # provisioner "remote-exec" {
-
   #   connection {
   #     type        = "ssh"
   #     user        = "ubuntu"
-  #     private_key = file(var.key_name)
-  #     host        = self.public_ip
+  #     private_key = file("${var.key_name}.pem")
+  #     host        = "${module.jenkins.ip_address}"
   #   }
 
   #   inline = [
+  #     "sleep 60",
   #     "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
   #   ]
   # }
