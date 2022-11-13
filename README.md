@@ -1,20 +1,27 @@
-# Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, PROD) on AWS
+# Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS
 
-- Clone the repository and the following:
+## All resources are provisioned on `us-east-1` and `AMIs are region specific`
+- `Note`: If you choose to use a specific region, use the correct Ubuntu AMI for that region.
+
+- Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
+```
+- To test the configuration, ensure terraform is installed on your local machine.
+```
+terraform --version
 ```
 ```
 terraform init
 ```
 ```
-terraform apply --auto-approve=true
+terraform apply --auto-approve
 ```
 
 
 - To destroy all resources do:
 ```
-terraform destroy --auto-approve=true
+terraform destroy --auto-approve
 ```
 
 - To clear directory after `destroying resources` run:
