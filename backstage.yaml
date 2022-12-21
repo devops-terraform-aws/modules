@@ -1,6 +1,0 @@
----
-- host: all
-  connection: local
-
-  tasks:
-  - name: ansible
