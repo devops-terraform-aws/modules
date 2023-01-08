@@ -1,7 +1,7 @@
 module "jenkins" {
 
   source          = "./parent-module/ec2-instance"
-  ami             = var.ami
+  ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key.get_key_name
   instance_type   = var.instance_type
   name            = "jenkins-${var.name}"
@@ -13,7 +13,7 @@ module "jenkins" {
 module "nexus" {
 
   source          = "./parent-module/ec2-instance"
-  ami             = var.ami_nexus
+  ami             = data.aws_ami.redhat-linux.id
   key_name        = module.aws_key.get_key_name
   instance_type   = var.instance_type
   security_groups = module.security_group.security_name
@@ -25,7 +25,7 @@ module "nexus" {
 module "sonarqube" {
 
   source          = "./parent-module/ec2-instance"
-  ami             = var.ami
+  ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key.get_key_name
   instance_type   = var.instance_type
   security_groups = module.security_group.security_name
@@ -41,7 +41,7 @@ module "tomcat" {
     for index, i in local.ec2_instance :
     i.name => i
   }
-  ami             = var.ami
+  ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key.get_key_name
   instance_type   = var.instance_type
   security_groups = module.security_group.security_name
@@ -73,9 +73,7 @@ module "security_group" {
   cidr_blocks = var.cidr_blocks
 }
 
-
 resource "null_resource" "ssh" {
-
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
