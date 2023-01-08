@@ -1,8 +1,3 @@
-variable "ami" {
-  type        = string
-  description = "AMI to use for the instance."
-}
-
 variable "key_name" {
   type        = string
   description = "Key name of the Key Pair to use for the instance."
@@ -31,9 +26,4 @@ variable "cidr_blocks" {
 variable "protocol" {
   type        = string
   description = "If you select a protocol of -1 (semantically equivalent to all, which is not a valid value here), you must specify a from_port and to_port equal to 0"
-}
-
-variable "ami_nexus" {
-  type        = string
-  description = "AMI to use for the instance. We are you redhat ami."
 }
