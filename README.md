@@ -1,6 +1,6 @@
 # Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS
 
-## All resources are provisioned on `us-east-1` and `AMIs are region specific`
+## All resources are provisioned on `us-east-1`(update tfavrs for your region)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
@@ -26,6 +26,7 @@ terraform destroy --auto-approve
 ```
 ./clean.sh
 ```
+
 ## Requirements
 
 | Name | Version |
@@ -37,7 +38,8 @@ terraform destroy --auto-approve
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.49.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.53.0 |
+| <a name="provider_http"></a> [http](#provider\_http) | 3.2.1 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
 
 ## Modules
@@ -50,6 +52,7 @@ terraform destroy --auto-approve
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | ./parent-module/security-group | n/a |
 | <a name="module_sonarqube"></a> [sonarqube](#module\_sonarqube) | ./parent-module/ec2-instance | n/a |
 | <a name="module_tomcat"></a> [tomcat](#module\_tomcat) | ./parent-module/ec2-instance | n/a |
+| <a name="module_unique_name"></a> [unique\_name](#module\_unique\_name) | ./parent-module/random | n/a |
 
 ## Resources
 
@@ -59,16 +62,15 @@ terraform destroy --auto-approve
 | [null_resource.ssh](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [aws_ami.redhat-linux](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_ami.ubuntu-linux-2004](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [http_http.myip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cidr_blocks"></a> [cidr\_blocks](#input\_cidr\_blocks) | The IPv4 CIDR block for the VPC | `list(string)` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type to use for the instance. Updates to this field will trigger a stop/start of the EC2 instance. | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name of the Key Pair to use for the instance. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name to assign to the resource. | `string` | n/a | yes |
-| <a name="input_protocol"></a> [protocol](#input\_protocol) | If you select a protocol of -1 (semantically equivalent to all, which is not a valid value here), you must specify a from\_port and to\_port equal to 0 | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Specify the region to for resources to be created. | `string` | n/a | yes |
 
 ## Outputs

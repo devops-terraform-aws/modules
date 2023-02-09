@@ -27,7 +27,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cidr_blocks"></a> [cidr\_blocks](#input\_cidr\_blocks) | List of CIDR blocks. | `list(string)` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name to assign to the resource. | `string` | n/a | yes |
-| <a name="input_protocol"></a> [protocol](#input\_protocol) | If you select a protocol of -1 (semantically equivalent to all, which is not a valid value here), you must specify a from\_port and to\_port equal to 0. | `string` | n/a | yes |
 
 ## Outputs
 
