@@ -56,11 +56,16 @@ module "aws_key" {
   key_name = var.key_name
 }
 
+module "unique_name" {
+
+  source = "./parent-module/random"
+}
+
 resource "null_resource" "generated_key" {
   provisioner "local-exec" {
     command = <<-EOT
-        echo '${module.aws_key.private_key}' > ./'${var.key_name}'.pem
-        chmod 400 ./'${var.key_name}'.pem
+        echo '${module.aws_key.private_key}' > ./'${var.key_name}'-'${module.unique_name.unique}'.pem
+        chmod 400 ./'${var.key_name}'-'${module.unique_name.unique}'.pem
       EOT
   }
 }
@@ -68,7 +73,7 @@ resource "null_resource" "generated_key" {
 module "security_group" {
 
   source      = "./parent-module/security-group"
-  name        = local.name
+  name        = "${local.name}${module.unique_name.unique}"
   protocol    = var.protocol
   cidr_blocks = var.cidr_blocks
 }
@@ -78,7 +83,7 @@ resource "null_resource" "ssh" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("${var.key_name}.pem")
+      private_key = file("${var.key_name}-${module.unique_name.unique}.pem")
       host        = module.jenkins.ip_address
     }
 
