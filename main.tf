@@ -1,5 +1,4 @@
 module "jenkins" {
-
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key.get_key_name
@@ -11,7 +10,6 @@ module "jenkins" {
 }
 
 module "nexus" {
-
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.redhat-linux.id
   key_name        = module.aws_key.get_key_name
@@ -23,7 +21,6 @@ module "nexus" {
 }
 
 module "sonarqube" {
-
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key.get_key_name
@@ -35,7 +32,6 @@ module "sonarqube" {
 }
 
 module "tomcat" {
-
   source = "./parent-module/ec2-instance"
   for_each = {
     for index, i in local.ec2_instance :
@@ -51,13 +47,11 @@ module "tomcat" {
 }
 
 module "aws_key" {
-
   source   = "./parent-module/ssh-key"
   key_name = var.key_name
 }
 
 module "unique_name" {
-
   source = "./parent-module/random"
 }
 
@@ -71,11 +65,9 @@ resource "null_resource" "generated_key" {
 }
 
 module "security_group" {
-
   source      = "./parent-module/security-group"
-  name        = "${local.name}${module.unique_name.unique}"
-  protocol    = var.protocol
-  cidr_blocks = var.cidr_blocks
+  name        = "${local.name}-${module.unique_name.unique}"
+  cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
 }
 
 resource "null_resource" "ssh" {

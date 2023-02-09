@@ -8,14 +8,14 @@ resource "aws_security_group" "security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_blocks
   }
 
   ingress {
     description = "Jenkins and Tomcat port"
     from_port   = 8080
     to_port     = 8080
-    protocol    = var.protocol
+    protocol    = "tcp"
     cidr_blocks = var.cidr_blocks
   }
 
@@ -23,7 +23,7 @@ resource "aws_security_group" "security_group" {
     description = "Nexus port"
     from_port   = 8081
     to_port     = 8081
-    protocol    = var.protocol
+    protocol    = "tcp"
     cidr_blocks = var.cidr_blocks
   }
 
@@ -31,7 +31,7 @@ resource "aws_security_group" "security_group" {
     description = "SonarQube port"
     from_port   = 9000
     to_port     = 9000
-    protocol    = var.protocol
+    protocol    = "tcp"
     cidr_blocks = var.cidr_blocks
   }
 
