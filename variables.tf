@@ -1,8 +1,3 @@
-variable "key_name" {
-  type        = string
-  description = "Key name of the Key Pair to use for the instance."
-}
-
 variable "instance_type" {
   type        = string
   description = "Instance type to use for the instance. Updates to this field will trigger a stop/start of the EC2 instance."

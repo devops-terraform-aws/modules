@@ -1,5 +1,5 @@
 output "jenkins_ssh" {
-  value = "ssh -i '${var.key_name}-${module.unique_name.unique}.pem' ubuntu@${module.jenkins.ip_address}"
+  value = "ssh -i '${module.unique_name.unique}.pem' ubuntu@${module.jenkins.ip_address}"
 }
 
 output "jenkins_browser" {
@@ -7,7 +7,7 @@ output "jenkins_browser" {
 }
 
 output "nexus_ssh" {
-  value = "ssh -i '${var.key_name}-${module.unique_name.unique}.pem' ec2-user@${module.nexus.ip_address}"
+  value = "ssh -i '${module.unique_name.unique}.pem' ec2-user@${module.nexus.ip_address}"
 }
 
 output "nexus_browser" {
@@ -15,7 +15,7 @@ output "nexus_browser" {
 }
 
 output "sonarqube_ssh" {
-  value = "ssh -i '${var.key_name}-${module.unique_name.unique}.pem' ubuntu@${module.sonarqube.ip_address}"
+  value = "ssh -i '${module.unique_name.unique}.pem' ubuntu@${module.sonarqube.ip_address}"
 }
 
 output "sonarqube_browser" {

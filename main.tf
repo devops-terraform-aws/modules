@@ -48,7 +48,7 @@ module "tomcat" {
 
 module "aws_key" {
   source   = "./parent-module/ssh-key"
-  key_name = var.key_name
+  key_name = module.unique_name.unique
 }
 
 module "unique_name" {
@@ -58,8 +58,8 @@ module "unique_name" {
 resource "null_resource" "generated_key" {
   provisioner "local-exec" {
     command = <<-EOT
-        echo '${module.aws_key.private_key}' > ./'${var.key_name}'-'${module.unique_name.unique}'.pem
-        chmod 400 ./'${var.key_name}'-'${module.unique_name.unique}'.pem
+        echo '${module.aws_key.private_key}' > ./'${module.unique_name.unique}'.pem
+        chmod 400 ./'${module.unique_name.unique}'.pem
       EOT
   }
 }
@@ -75,7 +75,7 @@ resource "null_resource" "ssh" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("${var.key_name}-${module.unique_name.unique}.pem")
+      private_key = file("${module.unique_name.unique}.pem")
       host        = module.jenkins.ip_address
     }
 

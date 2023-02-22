@@ -38,7 +38,7 @@ terraform destroy --auto-approve
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.53.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.55.0 |
 | <a name="provider_http"></a> [http](#provider\_http) | 3.2.1 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
 
@@ -69,7 +69,6 @@ terraform destroy --auto-approve
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type to use for the instance. Updates to this field will trigger a stop/start of the EC2 instance. | `string` | n/a | yes |
-| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name of the Key Pair to use for the instance. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name to assign to the resource. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Specify the region to for resources to be created. | `string` | n/a | yes |
 
