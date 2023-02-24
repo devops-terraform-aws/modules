@@ -38,3 +38,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_ip_address"></a> [ip\_address](#output\_ip\_address) | The public IP address from the EC2 instance. |
+| <a name="output_tags"></a> [tags](#output\_tags) | The Names of the EC2 instance |

@@ -81,8 +81,18 @@ resource "null_resource" "ssh" {
 
     inline = [
       "sleep 300",
-      "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
+      "sudo cat /var/lib/jenkins/secrets/initialAdminPassword > /tmp/jenkins_admin_password.txt"
     ]
   }
+}
 
+resource "null_resource" "copy_file" {
+  provisioner "local-exec" {
+    command = "scp -o StrictHostKeyChecking=no -i ./'${module.unique_name.unique}'.pem ubuntu@${module.jenkins.ip_address}:/tmp/jenkins_admin_password.txt ${path.module}/jenkins_admin_password.txt"
+
+  }
+
+  depends_on = [
+    null_resource.generated_key, null_resource.ssh
+  ]
 }

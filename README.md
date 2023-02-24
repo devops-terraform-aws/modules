@@ -1,6 +1,6 @@
 # Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS
 
-## All resources are provisioned on `us-east-1`(update tfavrs for your region)
+## All resources are provisioned on `us-east-1`(update tfvars for your region)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
@@ -17,12 +17,12 @@ terraform apply --auto-approve
 ```
 
 
-- To destroy all resources do:
+- To destroy all resources, do:
 ```
 terraform destroy --auto-approve
 ```
 
-- To clear environment after `destroying resources` run:
+- To clean up your environment after `destroying resources` run:
 ```
 ./clean.sh
 ```
@@ -58,6 +58,7 @@ terraform destroy --auto-approve
 
 | Name | Type |
 |------|------|
+| [null_resource.copy_file](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [null_resource.generated_key](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [null_resource.ssh](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [aws_ami.redhat-linux](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |

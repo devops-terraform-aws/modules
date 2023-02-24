@@ -23,5 +23,10 @@ output "sonarqube_browser" {
 }
 
 output "tomcat_servers" {
-  value = values(module.tomcat)
+  value = [
+    for instance in module.tomcat : {
+      "${instance.tags.Name}" = format("%s:%d", instance.ip_address, 8080)
+    }
+  ]
 }
+
