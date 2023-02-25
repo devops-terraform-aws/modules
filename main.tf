@@ -92,6 +92,11 @@ resource "null_resource" "copy_file" {
 
   }
 
+  provisioner "local-exec" {
+    when    = destroy
+    command = "rm ${path.module}/jenkins_admin_password.txt"
+  }
+
   depends_on = [
     null_resource.generated_key, null_resource.ssh
   ]

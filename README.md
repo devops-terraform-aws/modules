@@ -38,9 +38,9 @@ terraform destroy --auto-approve
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.55.0 |
-| <a name="provider_http"></a> [http](#provider\_http) | 3.2.1 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.20.0 |
+| <a name="provider_http"></a> [http](#provider\_http) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
 ## Modules
 
