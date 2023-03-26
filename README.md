@@ -1,10 +1,45 @@
 # Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS
-
-## All resources are provisioned on `us-east-1`(update tfvars for your region)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
 ```
+## All resources are provisioned on `us-east-1`(update tfvars for your region)
+- Configure virtual environment on `Ubuntu WSL`
+```
+sudo ln -sf $(which python3) /usr/bin/python && sudo apt install python3-venv -y && sudo apt install unzip -y
+```
+```
+python --version
+```
+```
+python -m venv venv && source venv/bin/activate
+```
+
+## Automated Terraform Installation
+- Run `install-terraform.sh` and source `venv`
+```
+./install-terraform.sh 
+```
+```
+source venv/bin/activate
+```
+
+## Manual Terraform Installation
+```
+git clone https://github.com/tfutils/tfenv.git venv/.tfenv 
+echo 'export PATH="venv/.tfenv/bin:$PATH"' >> venv/bin/activate
+echo 'eval "$(tfenv init -)"' >> venv/bin/activate
+export PATH="$PATH:$(pwd)/venv/.tfenv/bin"
+```
+- Install and use `Terraform`
+```
+tfenv use latest
+```
+```
+source venv/bin/activate
+```
+
+## Deploy Application to AWS
 - To test the configuration, ensure terraform is installed on your local machine.
 ```
 terraform --version
