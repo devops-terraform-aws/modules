@@ -14,6 +14,9 @@ python --version
 ```
 python -m venv venv && source venv/bin/activate
 ```
+```
+sudo apt install unzip
+```
 
 ## Automated Terraform Installation
 - Run `install-terraform.sh` and source `venv`
