@@ -80,7 +80,7 @@ resource "null_resource" "ssh" {
     }
 
     inline = [
-      "sleep 300",
+      "sleep 500",
       "sudo cat /var/lib/jenkins/secrets/initialAdminPassword > /tmp/jenkins_admin_password.txt"
     ]
   }
