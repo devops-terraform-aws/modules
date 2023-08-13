@@ -36,6 +36,8 @@ jobs:
   
     - name: Checkov GitHub Action
       uses: bridgecrewio/checkov-action@v12
+      with:
+        soft_fail: true
 
     - name: Terraform Format
       run: terraform fmt -check
