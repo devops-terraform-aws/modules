@@ -1,4 +1,4 @@
-# Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS
+# Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS [![Terraform](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
