@@ -1,32 +1,33 @@
 output "jenkins_ssh" {
-  value = "ssh -i '${module.unique_name.unique}.pem' ubuntu@${module.jenkins.ip_address}"
+  value = var.bootstrap ? "ssh -i '${module.unique_name[0].unique}.pem' ubuntu@${module.jenkins[0].ip_address}" : null
 }
 
 output "jenkins_browser" {
-  value = "${module.jenkins.ip_address}:8080"
+  value = var.bootstrap ? "${module.jenkins[0].ip_address}:8080" : null
 }
 
 output "nexus_ssh" {
-  value = "ssh -i '${module.unique_name.unique}.pem' ec2-user@${module.nexus.ip_address}"
+  value = var.bootstrap ? "ssh -i '${module.unique_name[0].unique}.pem' ec2-user@${module.nexus[0].ip_address}" : null
 }
 
 output "nexus_browser" {
-  value = "${module.nexus.ip_address}:8081"
+  value = var.bootstrap ? "${module.nexus[0].ip_address}:8081" : null
 }
 
 output "sonarqube_ssh" {
-  value = "ssh -i '${module.unique_name.unique}.pem' ubuntu@${module.sonarqube.ip_address}"
+  value = var.bootstrap ? "ssh -i '${module.unique_name[0].unique}.pem' ubuntu@${module.sonarqube[0].ip_address}" : null
 }
 
 output "sonarqube_browser" {
-  value = "${module.sonarqube.ip_address}:9000"
+  value = var.bootstrap ? "${module.sonarqube[0].ip_address}:9000" : null
 }
 
-output "tomcat_servers" {
-  value = [
-    for instance in module.tomcat : {
-      "${instance.tags.Name}" = format("%s:%d", instance.ip_address, 8080)
-    }
-  ]
+output "tomcat_browser" {
+  value = var.bootstrap ? "${module.tomcat[0].ip_address}:8080" : null
 }
+
+output "tomcat_ssh" {
+  value = var.bootstrap ? "ssh -i '${module.unique_name[0].unique}.pem' ubuntu@${module.tomcat[0].ip_address}" : null
+}
+
 
