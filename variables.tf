@@ -17,3 +17,7 @@ variable "name" {
   type        = string
   description = "The name to assign to the resource."
 }
+
+variable "bootstrap" {
+  type = bool
+}

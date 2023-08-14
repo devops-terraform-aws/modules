@@ -1,4 +1,4 @@
-# Install Jenkins, SonarQube, Nexus, Tomcat(DEV, QA, UAT, PROD) on AWS [![Terraform](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml)
+# Install Jenkins, SonarQube, Nexus, Tomcat on AWS [![Terraform](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
@@ -43,10 +43,12 @@ source venv/bin/activate
 ```
 
 ## Deploy Application to AWS
-- To test the configuration, ensure terraform is installed on your local machine.
+Terraform version must be `v1.3.0` and above
 ```
 terraform --version
 ```
+To deploy all the resources set `bootstrap=true` in the `terraform.tfvars`
+
 ```
 terraform init
 ```
