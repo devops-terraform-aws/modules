@@ -66,5 +66,4 @@ jobs:
          chmod +x ./scripts/clean.sh
          ./scripts/clean.sh
          rm -r ./* .git*
-         ls -al
       shell: bash
