@@ -1,5 +1,5 @@
 module "jenkins" {
-  count           = var.bootstrap ? 1 : 0
+  count           = var.bootstrap && var.bootstrap_jenkins ? 1 : 0
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key[0].get_key_name
@@ -11,7 +11,7 @@ module "jenkins" {
 }
 
 module "nexus" {
-  count           = var.bootstrap ? 1 : 0
+  count           = var.bootstrap && var.bootstrap_nexus ? 1 : 0
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.redhat-linux.id
   key_name        = module.aws_key[0].get_key_name
@@ -23,7 +23,7 @@ module "nexus" {
 }
 
 module "sonarqube" {
-  count           = var.bootstrap ? 1 : 0
+  count           = var.bootstrap && var.bootstrap_sonarqube ? 1 : 0
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key[0].get_key_name
@@ -35,7 +35,7 @@ module "sonarqube" {
 }
 
 module "tomcat" {
-  count           = var.bootstrap ? 1 : 0
+  count           = var.bootstrap && var.bootstrap_tomcat ? 1 : 0
   source          = "./parent-module/ec2-instance"
   ami             = data.aws_ami.ubuntu-linux-2004.id
   key_name        = module.aws_key[0].get_key_name
@@ -57,7 +57,7 @@ module "unique_name" {
   source = "./parent-module/random"
 }
 
-resource "null_resource" "generated_key" {
+resource "terraform_data" "generated_key" {
   count = var.bootstrap ? 1 : 0
   provisioner "local-exec" {
     command = <<-EOT

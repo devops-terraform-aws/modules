@@ -60,3 +60,11 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: terraform destroy -auto-approve
+
+    - name: Run script | Clean up
+      run: |
+         chmod +x ./scripts/clean.sh
+         ls -al
+         cat ./scripts/clean.sh
+         ./scripts/clean.sh
+      shell: bash
