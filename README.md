@@ -14,23 +14,24 @@ sudo ln -sf $(which python3) /usr/bin/python && sudo apt install python3-venv -y
 python -m venv venv && source venv/bin/activate
 ```
 
-### Automated Terraform Installation
-- Run `install-terraform.sh` and source `venv`
+- Terraform Installation
+    - Run the `install-terraform.sh` script
 ```
 ./install-terraform.sh 
 ```
 
 
 ## Deploy Application to AWS
-Terraform version must be `v1.3.0` and above
+- Terraform version must be `v1.3.0` and above
 ```
 terraform --version
 ```
-To deploy all the resources set `bootstrap=true` in the `terraform.tfvars`
+- To deploy all the resources set `bootstrap=true` in the `terraform.tfvars`
 
 ```
 terraform init && terraform apply --auto-approve
 ```
+- Give it 1 minute to provision the server(s).
 
 ### Jenkins Credentials
 - `Default port`: 8080
@@ -56,12 +57,24 @@ sudo cat /opt/sonatype-work/nexus3/admin.password
 ### Tomcat Server
 - `Default port`: 8080
 
-- To destroy all resources, do:
+## To Provision Specific Server
+- Configure the [tfvars](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L2-#L8)
+- For example to provision only `Jenkins Server`, set <br>
+```
+bootstrap_jenkins   = true
+bootstrap_tomcat    = false
+bootstrap_nexus     = false
+bootstrap_sonarqube = false
+```
+
+- I have set all `bootstrap` servers to `true`
+
+## Destroy all resources
 ```
 terraform destroy --auto-approve
 ```
 
 - To clean up your environment after `destroying resources` run:
 ```
-./clean.sh
+./scripts/clean.sh
 ```
