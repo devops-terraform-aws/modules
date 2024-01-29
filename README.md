@@ -1,5 +1,5 @@
 # Install Jenkins, SonarQube, Nexus, Tomcat on AWS [![Terraform](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml)
-### All resources are provisioned on `us-east-1`(update tfvars for your region)
+### All resources are provisioned on `us-east-1`(update [![tfvars](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars)](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L2) for your region)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
