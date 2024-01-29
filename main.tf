@@ -73,37 +73,3 @@ module "security_group" {
   name        = "${local.name}-${module.unique_name[0].unique}"
   cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
 }
-
-resource "null_resource" "ssh" {
-  count = var.bootstrap ? 1 : 0
-  provisioner "remote-exec" {
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("${module.unique_name[0].unique}.pem")
-      host        = module.jenkins[0].ip_address
-    }
-
-    inline = [
-      "sleep 500",
-      "sudo cat /var/lib/jenkins/secrets/initialAdminPassword > /tmp/jenkins_admin_password.txt"
-    ]
-  }
-}
-
-resource "null_resource" "copy_file" {
-  count = var.bootstrap ? 1 : 0
-  provisioner "local-exec" {
-    command = "scp -o StrictHostKeyChecking=no -i ./'${module.unique_name[0].unique}'.pem ubuntu@${module.jenkins[0].ip_address}:/tmp/jenkins_admin_password.txt ${path.module}/jenkins_admin_password.txt"
-
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm ${path.module}/jenkins_admin_password.txt"
-  }
-
-  depends_on = [
-    null_resource.generated_key, null_resource.ssh
-  ]
-}

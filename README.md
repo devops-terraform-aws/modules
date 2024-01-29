@@ -56,6 +56,29 @@ terraform init
 terraform apply --auto-approve
 ```
 
+### Jenkins Credentials
+- Default port: `8080`
+- SSH into `jenkins` server using the private key that is created
+- inside the `jenkins server`, run 
+```
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+### Nexus Credentials
+- Default port: `8081` 
+- Username: `admin`
+- Password: SSH into `Nexus` server and run
+```
+sudo cat /opt/sonatype-work/nexus3/admin.password
+```
+
+### SonarQube Credentials
+- Default port: `9000` 
+- Username: `admin`
+- Password: `admin`
+
+### Tomcat Server
+- Default port: `8080`
 
 - To destroy all resources, do:
 ```
