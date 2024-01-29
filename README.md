@@ -1,9 +1,10 @@
 # Install Jenkins, SonarQube, Nexus, Tomcat on AWS [![Terraform](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/devops-terraform-aws/modules/actions/workflows/terraform.yml)
+### All resources are provisioned on `us-east-1`(update tfvars for your region)
 - Clone the repository:
 ```
 git clone https://github.com/devops-terraform-aws/modules.git
 ```
-## All resources are provisioned on `us-east-1`(update tfvars for your region)
+## Terraform Virtual Environment Configuration (Optional)
 - Configure virtual environment on `Ubuntu WSL`
 ```
 sudo ln -sf $(which python3) /usr/bin/python && sudo apt install python3-venv -y && sudo apt install unzip -y
@@ -18,7 +19,7 @@ python -m venv venv && source venv/bin/activate
 sudo apt install unzip
 ```
 
-## Automated Terraform Installation
+### Automated Terraform Installation
 - Run `install-terraform.sh` and source `venv`
 ```
 ./install-terraform.sh 
@@ -27,7 +28,7 @@ sudo apt install unzip
 source venv/bin/activate
 ```
 
-## Manual Terraform Installation
+### Manual Terraform Installation
 ```
 git clone https://github.com/tfutils/tfenv.git venv/.tfenv 
 echo 'export PATH="venv/.tfenv/bin:$PATH"' >> venv/bin/activate
@@ -65,20 +66,20 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
 ### Nexus Credentials
-- Default port: `8081` 
-- Username: `admin`
-- Password: SSH into `Nexus` server and run
+- `Default port`: 8081 
+- `Username`: admin
+- `Password`: SSH into `Nexus` server and run
 ```
 sudo cat /opt/sonatype-work/nexus3/admin.password
 ```
 
 ### SonarQube Credentials
-- Default port: `9000` 
-- Username: `admin`
-- Password: `admin`
+- `Default port`: 9000
+- `Username`: admin
+- `Password`: admin
 
 ### Tomcat Server
-- Default port: `8080`
+- `Default port`: 8080
 
 - To destroy all resources, do:
 ```
