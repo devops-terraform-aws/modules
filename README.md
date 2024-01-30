@@ -17,7 +17,7 @@ python -m venv venv && source venv/bin/activate
 - Terraform Installation
     - Run the `install-terraform.sh` script
 ```
-./install-terraform.sh 
+./scripts/install-terraform.sh 
 ```
 
 
