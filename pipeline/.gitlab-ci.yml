@@ -1,0 +1,98 @@
+image:
+   name: ruby:3.1
+   entrypoint:
+     - '/usr/bin/env'
+     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+     - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}' 
+     - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}' 
+     - 'AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}'
+
+variables:
+  TF_IN_AUTOMATION: "true"
+  GITLAB_TF_ADDRESS: https://gitlab.com/api/v4/projects/${GITLAB_PROJECT_ID}/terraform/state/statebackend
+  STATE: "terraform.tfstate"
+  TF_ROOT: ./
+
+before_script:
+  - apt-get update && apt-get install -y curl unzip jq
+  - curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+  - TERRAFORM_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')
+  - curl -o /tmp/terraform.zip -LO "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+  - unzip /tmp/terraform.zip -d /usr/local/bin/
+  - chmod +x /usr/local/bin/terraform
+  - cd ${TF_ROOT}
+  - rm -rf .terraform
+  - terraform --version
+  - tfsec --version
+  - terraform init -backend-config="address=${GITLAB_TF_ADDRESS}" -backend-config="lock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="unlock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="username=ukohae39" -backend-config="password=glpat-kDmGDgERve1NHw-axV_A" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
+
+stages:
+  - validate
+  - security-scan
+  - tfsec
+  - plan
+  - apply
+  - destroy
+  - cleanup
+
+validate:
+  stage: validate
+  script:
+    - terraform validate
+
+checkov:
+  stage: security-scan
+  image:
+    name: bridgecrew/checkov:latest
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  rules:
+    - if: $SAST_DISABLED
+      when: never
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - '**/*.tf'
+  script:
+    - ls -al
+    - script -q -c 'checkov -d ../ --skip-path .gitlab-ci.yml ; echo $? > CKVEXIT'
+  dependencies:
+    - validate
+
+tfsec:
+  stage: security-scan
+  allow_failure: true
+  script:
+    - tfsec .
+  dependencies:
+    - validate
+
+plan:
+  stage: plan
+  script:
+    - terraform plan -out "planfile"
+  dependencies:
+    - validate
+  artifacts:
+    paths:
+      - ${TF_ROOT}/planfile
+
+apply:
+  stage: apply
+  script:
+    - terraform apply -input=false "planfile"
+  dependencies:
+    - plan
+  when: manual
+
+destroy:
+  stage: destroy
+  script:
+    - terraform destroy -state=$STATE -auto-approve
+  when: manual
+
+cleanup:
+  stage: cleanup
+  script:
+    - 'curl --request DELETE --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/pipelines?status=success&updated_before=2022-01-01T00:00:00Z"'
+  when: manual
