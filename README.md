@@ -34,18 +34,18 @@ terraform --version
 ```
 
 ### AWS Credentials Setup (Optional)
-    ```
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    ```
-    ```
-    unzip awscliv2.zip
-    ```
-    ```
-    sudo ./aws/install
-    ```
-    ```
-    aws --version
-    ```
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+```
+```
+unzip awscliv2.zip
+```
+```
+sudo ./aws/install
+```
+```
+aws --version
+```
 
 - Generate `Access Key` and `Secret Keys` from AWS [Click Here](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-2#/security_credentials)
     - In `WSL2`, do:
