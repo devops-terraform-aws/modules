@@ -42,3 +42,8 @@ variable "bootstrap_sonarqube" {
   type        = bool
   description = "Bootstrap SonarQube server"
 }
+
+variable "allow_all_network_traffic" {
+  type        = bool
+  description = "Set to `true` if you want to allow all network traffic to VM"
+}
