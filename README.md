@@ -6,7 +6,9 @@ git clone https://github.com/devops-terraform-aws/modules.git
 ```
 ## Terraform Virtual Environment Configuration - WSL-Ubuntu (Optional)
 - Configure virtual environment on `Ubuntu WSL`
+
 ```
+sudo apt update && sudo apt upgrade -y
 sudo ln -sf $(which python3) /usr/bin/python && sudo apt install python3-venv -y && sudo apt install unzip -y
 ```
 
@@ -30,6 +32,28 @@ python -m venv venv && source venv/bin/activate
 ```
 terraform --version
 ```
+
+### AWS Credentials Setup (Optional)
+    ```
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    ```
+    ```
+    unzip awscliv2.zip
+    ```
+    ```
+    sudo ./aws/install
+    ```
+    ```
+    aws --version
+    ```
+
+- Generate `Access Key` and `Secret Keys` from AWS [Click Here](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-2#/security_credentials)
+    - In `WSL2`, do:
+        ```
+        aws configure
+        ```
+    - Parse the following: <br />
+        `AWS Access Key ID [None]: `<br /> `AWS Secret Access Key [None]: `<br /> `Default region name [None]: ` <br /> `Default output format [None]: `
 - To deploy all the resources set `bootstrap=true` in the `terraform.tfvars`
 
 ```
@@ -62,7 +86,7 @@ sudo cat /opt/sonatype-work/nexus3/admin.password
 - `Default port`: 8080
 
 ## To Provision Specific Server
-- Configure the [tfvars](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L2-#L8)
+- Configure the [tfvars](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L3-#L8)
 - For example to provision only `Jenkins Server`, set <br>
 ```
 bootstrap_jenkins   = true
