@@ -50,11 +50,6 @@ aws --version
         `AWS Access Key ID [None]: `<br /> `AWS Secret Access Key [None]: `<br /> `Default region name [None]: ` <br /> `Default output format [None]: `
 - To deploy all the resources set `bootstrap=true` in the `terraform.tfvars`
 
-```
-terraform init && terraform apply --auto-approve
-```
-- Give it 1 minute to provision the server(s).
-
 ### Jenkins Credentials
 - `Default port`: 8080
 - `SSH` into `Jenkins Server` using the private key that is created
@@ -80,7 +75,7 @@ sudo cat /opt/sonatype-work/nexus3/admin.password
 - `Default port`: 8080
 
 ## To Provision Specific Server
-- Configure the [tfvars](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L3-#L8)
+- Configure the [tfvars](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L5-#L8)
 - For example to provision only `Jenkins Server`, set <br>
 ```
 bootstrap_jenkins   = true
@@ -94,7 +89,12 @@ bootstrap_sonarqube = false
     allow_all_network_traffic = false
     ```
 
-- I have set all `bootstrap` servers to `true`
+- Provision Application(s)
+
+```
+terraform init && terraform apply --auto-approve
+```
+- Give it 1 minute to provision the server(s).
 
 ## Destroy all resources
 ```
