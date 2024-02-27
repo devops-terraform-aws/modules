@@ -1,7 +1,7 @@
 module "jenkins" {
   source          = "git::https://github.com/devops-terraform-aws/ec2-instance-module.git?ref=v1.0.0"
   count           = var.bootstrap && var.bootstrap_jenkins ? 1 : 0
-  ami             = data.aws_ami.ubuntu-linux-2004.id
+  ami             = data.aws_ami.ubuntu-linux-22.id
   key_name        = module.aws_key[0].get_key_name
   instance_type   = var.instance_type
   name            = "jenkins-${var.name}"
@@ -25,7 +25,7 @@ module "nexus" {
 module "sonarqube" {
   source          = "git::https://github.com/devops-terraform-aws/ec2-instance-module.git?ref=v1.0.0"
   count           = var.bootstrap && var.bootstrap_sonarqube ? 1 : 0
-  ami             = data.aws_ami.ubuntu-linux-2004.id
+  ami             = data.aws_ami.ubuntu-linux-22.id
   key_name        = module.aws_key[0].get_key_name
   instance_type   = var.instance_type
   security_groups = module.security_group[0].security_name
@@ -37,7 +37,7 @@ module "sonarqube" {
 module "tomcat" {
   source          = "git::https://github.com/devops-terraform-aws/ec2-instance-module.git?ref=v1.0.0"
   count           = var.bootstrap && var.bootstrap_tomcat ? 1 : 0
-  ami             = data.aws_ami.ubuntu-linux-2004.id
+  ami             = data.aws_ami.ubuntu-linux-22.id
   key_name        = module.aws_key[0].get_key_name
   instance_type   = var.instance_type
   security_groups = module.security_group[0].security_name
@@ -71,5 +71,5 @@ module "security_group" {
   source      = "git::https://github.com/devops-terraform-aws/security-group-module.git?ref=v1.0.0"
   count       = var.bootstrap ? 1 : 0
   name        = "${local.name}-${module.unique_name[0].unique}"
-  cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
+  cidr_blocks = var.allow_all_network_traffic ? ["0.0.0.0/0"] : ["${chomp(data.http.myip.response_body)}/32"]
 }

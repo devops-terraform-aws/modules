@@ -16,13 +16,17 @@ python -m venv venv && source venv/bin/activate
 
 - Terraform Installation
     - Run the `install-terraform.sh` script
-```
-./scripts/install-terraform.sh 
-```
+    ```
+    ./scripts/install-terraform.sh 
+    ```
+    - Reload the virtual environment to ensure you have the latest terraform version
+    ```
+    source venv/bin/activate
+    ```
 
 
 ## Deploy Application to AWS
-- Terraform version must be `v1.3.0` and above
+- Terraform version must be `v1.3.0` and above. verify your installations by running
 ```
 terraform --version
 ```
@@ -66,6 +70,11 @@ bootstrap_tomcat    = false
 bootstrap_nexus     = false
 bootstrap_sonarqube = false
 ```
+
+- To whitelist on your IP (Allow only your IP to access the VMs), set `allow_all_network_traffic` to `false` in the [tfvars | Line 9](https://github.com/devops-terraform-aws/modules/blob/main/terraform.tfvars#L9)
+    ```
+    allow_all_network_traffic = false
+    ```
 
 - I have set all `bootstrap` servers to `true`
 
