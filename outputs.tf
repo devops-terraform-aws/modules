@@ -1,5 +1,5 @@
 output "jenkins_ssh" {
-  value = var.bootstrap && var.bootstrap_jenkins ? "ssh -i '${module.unique_name[0].unique}.pem' ubuntu@${module.jenkins[0].ip_address}" : null
+  value = var.bootstrap && var.bootstrap_jenkins ? "ssh -o StrictHostKeyChecking=no -i '${module.unique_name[0].unique}.pem' ubuntu@${module.jenkins[0].ip_address}" : null
 }
 
 output "jenkins_browser" {
@@ -7,7 +7,7 @@ output "jenkins_browser" {
 }
 
 output "nexus_ssh" {
-  value = var.bootstrap && var.bootstrap_nexus ? "ssh -i '${module.unique_name[0].unique}.pem' ec2-user@${module.nexus[0].ip_address}" : null
+  value = var.bootstrap && var.bootstrap_nexus ? "ssh  -o StrictHostKeyChecking=no-i '${module.unique_name[0].unique}.pem' ec2-user@${module.nexus[0].ip_address}" : null
 }
 
 output "nexus_browser" {
@@ -15,7 +15,7 @@ output "nexus_browser" {
 }
 
 output "sonarqube_ssh" {
-  value = var.bootstrap && var.bootstrap_sonarqube ? "ssh -i '${module.unique_name[0].unique}.pem' ubuntu@${module.sonarqube[0].ip_address}" : null
+  value = var.bootstrap && var.bootstrap_sonarqube ? "ssh -o StrictHostKeyChecking=no -i '${module.unique_name[0].unique}.pem' ubuntu@${module.sonarqube[0].ip_address}" : null
 }
 
 output "sonarqube_browser" {
@@ -27,7 +27,7 @@ output "tomcat_browser" {
 }
 
 output "tomcat_ssh" {
-  value = var.bootstrap && var.bootstrap_tomcat ? "ssh -i '${module.unique_name[0].unique}.pem' ubuntu@${module.tomcat[0].ip_address}" : null
+  value = var.bootstrap && var.bootstrap_tomcat ? "ssh -o StrictHostKeyChecking=no -i '${module.unique_name[0].unique}.pem' ubuntu@${module.tomcat[0].ip_address}" : null
 }
 
 
