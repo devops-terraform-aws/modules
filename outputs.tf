@@ -7,7 +7,7 @@ output "jenkins_browser" {
 }
 
 output "nexus_ssh" {
-  value = var.bootstrap && var.bootstrap_nexus ? "ssh  -o StrictHostKeyChecking=no-i '${module.unique_name[0].unique}.pem' ec2-user@${module.nexus[0].ip_address}" : null
+  value = var.bootstrap && var.bootstrap_nexus ? "ssh -o StrictHostKeyChecking=no -i '${module.unique_name[0].unique}.pem' ec2-user@${module.nexus[0].ip_address}" : null
 }
 
 output "nexus_browser" {
