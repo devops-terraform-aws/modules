@@ -1,10 +1,17 @@
 #!/bin/bash
 
+version="10.4.0.87286"
+
 sudo hostnamectl set-hostname sonar-qube
-sudo apt-get update && sudo apt-get install default-jdk -y
+sudo apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-17-jdk
+
+
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 sudo wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
-sudo apt-get -y install postgresql postgresql-contrib
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install postgresql postgresql-contrib
+
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
@@ -13,11 +20,11 @@ sudo -i -u postgres psql -c "ALTER USER sonar WITH ENCRYPTED password 'password'
 sudo -i -u postgres psql -c "CREATE DATABASE sonarqube OWNER sonar;"
 sudo -i -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;"
 
-sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.6.0.39681.zip
-sudo apt-get -y install unzip
+sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-$version.zip
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install unzip
 sudo unzip sonarqube*.zip -d /opt
 
-sudo mv /opt/sonarqube-8.6.0.39681 /opt/sonarqube -v
+sudo mv /opt/sonarqube-$version /opt/sonarqube -v
 
 sudo groupadd sonarGroup
 sudo useradd -c "user to run SonarQube" -d /opt/sonarqube -g sonarGroup sonar 
