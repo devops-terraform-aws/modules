@@ -19,16 +19,16 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3 # v3
+      uses: actions/checkout@v5 # v3
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2 # v2
+      uses: hashicorp/setup-terraform@v3 # v2
 
     - name: Terraform Init
       run: terraform init
 
     - name: tfsec
-      uses: aquasecurity/tfsec-action@a73ebc46fba54691e25cbe901656e7b205fb9bf2 # v1.0.0
+      uses: aquasecurity/tfsec-action@b466648d6e39e7c75324f25d83891162a721f2d6 # v1.0.3
       with:
         soft_fail: true
   

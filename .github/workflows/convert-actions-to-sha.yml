@@ -11,7 +11,7 @@ jobs:
   convert:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Convert to SHA
         run: |
@@ -56,7 +56,7 @@ jobs:
           git diff .github/workflows
 
       - name: Create PR
-        uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           commit-message: "feat: Pin external actions to SHAs"
           title: "Pin external GitHub Actions to SHAs"
@@ -76,7 +76,7 @@ jobs:
 #   convert:
 #     runs-on: ubuntu-latest
 #     steps:
-#       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+#       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
 #       - name: Convert to SHA
 #         run: |
@@ -97,7 +97,7 @@ jobs:
 #           done
 
 #       - name: Create PR
-#         uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
+#         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
 #         with:
 #           commit-message: "feat: Pin external actions to SHAs"
 #           title: "Pin external GitHub Actions to SHAs"
