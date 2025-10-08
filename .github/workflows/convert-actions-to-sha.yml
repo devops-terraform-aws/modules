@@ -15,21 +15,45 @@ jobs:
 
       - name: Convert to SHA
         run: |
+          echo "Finding external actions..."
           grep -rh "uses:" .github/workflows | \
             grep -v "department-of-veterans-affairs" | \
             grep -v "#" | \
-            sed 's/.*uses: *//' | \
-            grep "@" | sort -u | \
+            sed 's/.*uses:[[:space:]]*//' | \
+            grep "@" | sort -u > /tmp/actions.txt
+          
+          cat /tmp/actions.txt
+          
           while read action; do
-            repo=$(echo $action | cut -d@ -f1)
-            tag=$(echo $action | cut -d@ -f2)
-            [[ "$tag" =~ ^[0-9a-f]{40}$ ]] && continue
-            sha=$(git ls-remote https://github.com/$repo.git refs/tags/$tag | awk '{print $1}')
-            [ -z "$sha" ] && continue
-            echo "Converting: $action → $sha"
-            find .github/workflows -name "*.yml" ! -name "convert-actions-to-sha.yml" | \
-              xargs sed -i "s|uses: $action|uses: $repo@$sha # $tag|g"
-          done
+            repo=$(echo "$action" | cut -d@ -f1)
+            tag=$(echo "$action" | cut -d@ -f2)
+            
+            # Skip if already SHA
+            if [[ "$tag" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "Skip: $action (already SHA)"
+              continue
+            fi
+            
+            echo "Processing: $repo@$tag"
+            sha=$(git ls-remote https://github.com/$repo.git refs/tags/$tag 2>/dev/null | awk '{print $1}')
+            
+            if [ -z "$sha" ]; then
+              echo "  ERROR: Could not fetch SHA"
+              continue
+            fi
+            
+            echo "  SHA: $sha"
+            
+            # Replace in all workflows except this one
+            for file in .github/workflows/*.yml .github/workflows/*.yaml; do
+              if [ -f "$file" ] && [ "$(basename $file)" != "convert-actions-to-sha.yml" ]; then
+                sed -i "s|uses:[[:space:]]*$action|uses: $repo@$sha # $tag|g" "$file"
+              fi
+            done
+          done < /tmp/actions.txt
+          
+          echo "Conversion complete"
+          git diff .github/workflows
 
       - name: Create PR
         uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
@@ -38,3 +62,44 @@ jobs:
           title: "Pin external GitHub Actions to SHAs"
           body: "Converts external actions to SHA pins. Dependabot will maintain updates."
           branch: feat/pin-actions-to-sha
+
+# name: Convert Actions to SHA
+
+# on:
+#   workflow_dispatch:
+
+# permissions:
+#   contents: write
+#   pull-requests: write
+
+# jobs:
+#   convert:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+#       - name: Convert to SHA
+#         run: |
+#           grep -rh "uses:" .github/workflows | \
+#             grep -v "department-of-veterans-affairs" | \
+#             grep -v "#" | \
+#             sed 's/.*uses: *//' | \
+#             grep "@" | sort -u | \
+#           while read action; do
+#             repo=$(echo $action | cut -d@ -f1)
+#             tag=$(echo $action | cut -d@ -f2)
+#             [[ "$tag" =~ ^[0-9a-f]{40}$ ]] && continue
+#             sha=$(git ls-remote https://github.com/$repo.git refs/tags/$tag | awk '{print $1}')
+#             [ -z "$sha" ] && continue
+#             echo "Converting: $action → $sha"
+#             find .github/workflows -name "*.yml" ! -name "convert-actions-to-sha.yml" | \
+#               xargs sed -i "s|uses: $action|uses: $repo@$sha # $tag|g"
+#           done
+
+#       - name: Create PR
+#         uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
+#         with:
+#           commit-message: "feat: Pin external actions to SHAs"
+#           title: "Pin external GitHub Actions to SHAs"
+#           body: "Converts external actions to SHA pins. Dependabot will maintain updates."
+#           branch: feat/pin-actions-to-sha
